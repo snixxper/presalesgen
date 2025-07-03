@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Propuestas Comerciales - Entel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .entel-blue { color: #0033A0; }
+        .entel-orange { color: #FF671F; }
+        .bg-entel-blue { background-color: #0033A0; }
+        .bg-entel-orange { background-color: #FF671F; }
+        .border-entel-orange { border-color: #FF671F; }
+
+        /* Estilos para la impresión */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .no-print {
+                display: none;
+            }
+            .print-container {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .print-content {
+                width: 100% !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .cover-page {
+                page-break-after: always;
+                height: 100vh; /* Ocupa una página completa al imprimir */
+            }
+            .proposal-section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-200 text-gray-800">
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        <!-- Panel del Formulario (Izquierda) -->
+        <div class="w-full lg:w-2/5 bg-white p-6 md:p-8 overflow-y-auto no-print">
+            <div class="flex items-center mb-6">
+                <img src="https://i.imgur.com/rGk20n4.png" alt="Logo Entel" class="h-10 mr-4">
+                <h1 class="text-2xl font-bold text-gray-900">Generador de Propuestas</h1>
+            </div>
+            
+            <form id="proposal-form" class="space-y-6">
+                <!-- Información General -->
+                <div>
+                    <h2 class="text-lg font-semibold border-b pb-2 mb-4">Información del Cliente</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="client-name" class="block text-sm font-medium text-gray-700">Nombre del Cliente</label>
+                            <input type="text" id="client-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" value="Nombre de Empresa S.A.C.">
+                        </div>
+                        <div>
+                            <label for="opp-number" class="block text-sm font-medium text-gray-700">N° de Cotización (OPP)</label>
+                            <input type="text" id="opp-number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" value="12345">
+                        </div>
+                         <div>
+                            <label for="contact-name" class="block text-sm font-medium text-gray-700">Nombre del Contacto</label>
+                            <input type="text" id="contact-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" value="Gerente de TI">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información de Contactos Entel -->
+                <div>
+                    <h2 class="text-lg font-semibold border-b pb-2 mb-4">Información de Contactos (Entel)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                         <div>
+                            <label for="kam-name" class="block text-sm font-medium text-gray-700">Nombre KAM</label>
+                            <input type="text" id="kam-name" class="mt-1 block w-full rounded-md" value="Juan Carlos Roeder">
+                        </div>
+                         <div>
+                            <label for="kam-email" class="block text-sm font-medium text-gray-700">E-mail KAM</label>
+                            <input type="email" id="kam-email" class="mt-1 block w-full rounded-md" value="juancarlos.roeder@entel.pe">
+                        </div>
+                        <div>
+                            <label for="kam-phone" class="block text-sm font-medium text-gray-700">Celular KAM</label>
+                            <input type="text" id="kam-phone" class="mt-1 block w-full rounded-md" value="981 026 207">
+                        </div>
+                        <div>
+                            <label for="specialist-name" class="block text-sm font-medium text-gray-700">Nombre Especialista</label>
+                            <input type="text" id="specialist-name" class="mt-1 block w-full rounded-md" value="ENTEL PERÚ SA">
+                        </div>
+                        <div>
+                            <label for="specialist-email" class="block text-sm font-medium text-gray-700">Email Especialista</label>
+                            <input type="text" id="specialist-email" class="mt-1 block w-full rounded-md" value="email.specialist@entel.pe">
+                        </div>
+                        <div>
+                            <label for="specialist-phone" class="block text-sm font-medium text-gray-700">Celular Especialista</label>
+                            <input type="text" id="specialist-phone" class="mt-1 block w-full rounded-md" value="999 999 999">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Propuesta Económica -->
+                <div>
+                    <h2 class="text-lg font-semibold border-b pb-2 mb-4">Propuesta Económica (Precios sin IGV)</h2>
+                    <div class="p-4 border rounded-md bg-gray-50 mb-4">
+                        <h3 class="font-semibold text-gray-800">Servicio SMS</h3>
+                        <div class="grid grid-cols-2 gap-4 mt-2">
+                           <div><label class="block text-sm font-medium text-gray-600">Volumen Fijo (Bolsa)</label><input type="text" id="sms-volume" class="mt-1 w-full rounded-md border-gray-300" value="10,000"></div>
+                            <div><label class="block text-sm font-medium text-gray-600">Precio por Mensaje (S/.)</label><input type="number" step="0.0001" id="sms-price-msg" class="mt-1 w-full rounded-md border-gray-300" value="0.0550"></div>
+                            <div><label class="block text-sm font-medium text-gray-600">Precio Mensual (S/.)</label><input type="number" step="0.01" id="sms-price-monthly" class="mt-1 w-full rounded-md border-gray-300" value="550.00"></div>
+                        </div>
+                    </div>
+                    <div class="p-4 border rounded-md bg-gray-50 mb-4">
+                        <h3 class="font-semibold text-gray-800">Servicio Email</h3>
+                         <div class="grid grid-cols-2 gap-4 mt-2">
+                           <div><label class="block text-sm font-medium text-gray-600">Volumen Fijo (Bolsa)</label><input type="text" id="email-volume" class="mt-1 w-full rounded-md border-gray-300" value="20,000"></div>
+                            <div><label class="block text-sm font-medium text-gray-600">Precio por Mensaje (S/.)</label><input type="number" step="0.0001" id="email-price-msg" class="mt-1 w-full rounded-md border-gray-300" value="0.0100"></div>
+                            <div><label class="block text-sm font-medium text-gray-600">Precio Mensual (S/.)</label><input type="number" step="0.01" id="email-price-monthly" class="mt-1 w-full rounded-md border-gray-300" value="200.00"></div>
+                        </div>
+                    </div>
+                     <div class="p-4 border rounded-md bg-gray-50 mb-4">
+                        <h3 class="font-semibold text-gray-800">Servicio Validation</h3>
+                         <div class="grid grid-cols-2 gap-4 mt-2">
+                           <div><label class="block text-sm font-medium text-gray-600">Volumen Fijo (Bolsa)</label><input type="text" id="validation-volume" class="mt-1 w-full rounded-md border-gray-300" value="5,000"></div>
+                            <div><label class="block text-sm font-medium text-gray-600">Precio Único (S/.)</label><input type="number" step="0.01" id="validation-price-oneshot" class="mt-1 w-full rounded-md border-gray-300" value="92.50"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-md font-semibold mt-6 mb-2">Servicios Opcionales</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center"><input id="include-alpha" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600"><label for="include-alpha" class="ml-2 block text-sm text-gray-900">Incluir Alpha Sender (Pago único S/. 40,000)</label></div>
+                        <div class="flex items-center"><input id="include-shortcode" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600"><label for="include-shortcode" class="ml-2 block text-sm text-gray-900">Incluir Short Code (Pago único S/. 47,000)</label></div>
+                        <div class="flex items-center"><input id="include-support" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600"><label for="include-support" class="ml-2 block text-sm text-gray-900">Incluir Soporte "Standard" (S/. 569.00 mensual)</label></div>
+                         <div class="flex items-center"><input id="include-training" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600"><label for="include-training" class="ml-2 block text-sm text-gray-900">Incluir Entrenamiento y Consultoría ($ 117.00 único)</label></div>
+                    </div>
+                </div>
+                <div class="pt-6"><button type="button" id="print-btn" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-entel-orange hover:opacity-90">Imprimir / Guardar como PDF</button></div>
+            </form>
+        </div>
+
+        <!-- Vista Previa de la Propuesta (Derecha) -->
+        <div class="w-full lg:w-3/5 p-6 md:p-8 bg-gray-200 flex justify-center print-container">
+            <div id="proposal-preview" class="w-full max-w-4xl bg-white shadow-lg rounded-lg print-content">
+                <!-- Portada -->
+                <div class="cover-page w-full h-full bg-white flex flex-col">
+                    <div class="relative h-2/3 w-full">
+                        <img src="https://i.imgur.com/gO0A3hX.jpeg" class="absolute h-full w-full object-cover" alt="Persona de negocios usando una tablet">
+                        <img src="https://i.imgur.com/rGk20n4.png" class="absolute top-8 right-8 h-16" alt="Logo Entel Empresas">
+                    </div>
+                    <div class="flex-grow p-12 flex flex-col justify-between">
+                        <div>
+                            <h1 class="text-4xl font-bold entel-blue">Propuesta Comercial</h1>
+                            <p class="text-2xl text-gray-700 mt-2">Lleva tu empresa a la evolución digital</p>
+                            <div class="mt-8 text-gray-600 space-y-1">
+                                <p><span class="font-semibold">Número de Cotización:</span> <span id="cover-opp-number"></span></p>
+                                <p><span class="font-semibold">Fecha:</span> <span id="cover-date"></span></p>
+                                <p><span class="font-semibold">Vigente hasta:</span> <span id="cover-valid-until"></span></p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 gap-4 text-xs text-gray-700 border-t pt-4">
+                            <div>
+                                <p class="font-bold uppercase">Creado para:</p>
+                                <p id="cover-client-name"></p>
+                            </div>
+                            <div>
+                                <p class="font-bold uppercase">De:</p>
+                                <p id="cover-kam-name-from"></p>
+                                <p class="truncate" id="cover-kam-email"></p>
+                                <p>T: <span id="cover-kam-phone"></span></p>
+                            </div>
+                            <div>
+                                <p class="font-bold uppercase text-white">.</p>
+                                <p id="cover-specialist-name"></p>
+                                <p class="truncate" id="cover-specialist-email"></p>
+                                <p>T: <span id="cover-specialist-phone"></span></p>
+                            </div>
+                             <div>
+                                <p class="font-bold uppercase text-white">.</p>
+                                <p id="cover-kam-name-main"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contenido de la Propuesta -->
+                <div class="p-10 md:p-12">
+                    <header class="flex justify-between items-start border-b-4 border-entel-orange pb-6 mb-8">
+                        <div>
+                            <h1 class="text-3xl font-bold entel-blue">Propuesta Comercial</h1>
+                            <p class="text-lg text-gray-600 mt-1">Lleva tu empresa a la evolución digital</p>
+                        </div>
+                        <img src="https://i.imgur.com/rGk20n4.png" alt="Logo Entel Empresas" class="h-16">
+                    </header>
+                    <main class="space-y-10">
+                        <section class="proposal-section">
+                            <h2 class="text-xl font-bold entel-blue border-b-2 pb-2 mb-4">1. Términos de confidencialidad</h2>
+                            <p class="text-gray-700 leading-relaxed text-xs">
+                                La presente propuesta técnica económica ha sido elaborada para <strong id="conf-client-name" class="font-bold"></strong>, la cual es considerada en estricta confidencialidad y de propiedad de ENTEL EMPRESAS. ENTEL EMPRESAS, presenta este documento entendiendo que el mismo será utilizado para fines de evaluación de los servicios propuestos. <strong id="conf-client-name-2" class="font-bold"></strong> no divulgará el presente documento, el material descrito, conceptos organizacionales; tampoco podrá realizar copias ni utilizar para otro fin que no sea la evaluación del servicio. Una vez firmado el contrato de servicio entre <strong id="conf-client-name-3" class="font-bold"></strong> y ENTEL EMPRESAS, dicho documento establecerá las condiciones para el uso de esta información.
+                            </p>
+                        </section>
+                        <section class="proposal-section">
+                            <h2 class="text-xl font-bold entel-blue border-b-2 pb-2 mb-4">2. Resumen Ejecutivo</h2>
+                            <p class="text-gray-700 leading-relaxed">Estimado <strong id="exec-contact-name" class="font-bold"></strong>, en esta propuesta te ofrecemos una solución innovadora para que estés preparado ante las demandas del mercado. En Entel Empresas, contamos con soluciones tecnológicas y con un equipo de ingenieros especialistas con amplia experiencia y certificaciones para ayudarte a llevar tu empresa al siguiente nivel.</p>
+                        </section>
+                        <section class="proposal-section">
+                            <h2 class="text-xl font-bold entel-blue border-b-2 pb-2 mb-4">3. Precio de la solución</h2>
+                            <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-300 mt-4 text-sm"><thead class="bg-gray-100"><tr><th class="px-4 py-2 text-left font-semibold text-gray-600 uppercase">VOLUMEN FIJO</th><th class="px-4 py-2 text-right font-semibold text-gray-600 uppercase">PRECIO POR MENSAJE</th><th class="px-4 py-2 text-right font-semibold text-gray-600 uppercase">PRECIO MENSUAL</th><th class="px-4 py-2 text-right font-semibold text-gray-600 uppercase">PRECIO ÚNICO</th></tr></thead><tbody id="preview-pricing-table" class="bg-white divide-y divide-gray-200"></tbody></table><table class="min-w-full divide-y divide-gray-300 mt-6 text-sm"><thead class="bg-gray-100"><tr><th class="px-4 py-2 text-left font-semibold text-gray-600 uppercase">OTROS SERVICIOS</th><th class="px-4 py-2 text-right font-semibold text-gray-600 uppercase">PRECIO MENSUAL</th><th class="px-4 py-2 text-right font-semibold text-gray-600 uppercase">PRECIO ÚNICO</th></tr></thead><tbody id="preview-optional-table" class="bg-white divide-y divide-gray-200"></tbody></table></div>
+                        </section>
+                        <section class="proposal-section">
+                            <h2 class="text-xl font-bold entel-blue border-b-2 pb-2 mb-4">4. Condiciones del producto</h2>
+                            <ul class="list-disc list-inside text-xs text-gray-700 space-y-2"><li>Tiempo de servicio: 12 meses.</li><li>La vigencia de la cantidad contratada de SMS o Email y Validation es el tiempo de contrato.</li><li>Los precios no incluyen IGV.</li><li>Los precios en dólares serán cargados en soles de acuerdo al tipo de cambio del día según ventanilla Entel.</li><li>Se estima un consumo aproximado de <strong id="cond-sms-volume"></strong> SMS, <strong id="cond-email-volume"></strong> Email y <strong id="cond-validation-volume"></strong> Validation.</li><li>La contratación del servicio Validation es obligatorio.</li></ul>
+                        </section>
+                        <footer class="pt-8 border-t mt-12"><h2 class="text-xl font-bold entel-blue mb-4">¡Gracias!</h2><p class="text-gray-700 leading-relaxed">Estimado <strong id="final-contact-name"></strong>,</p><p class="text-gray-700 leading-relaxed mt-2">Gracias por su tiempo. Confiamos en que la solución propuesta se adapte perfectamente a las necesidades de su negocio. Si tiene alguna pregunta, no dude en comunicarse conmigo.</p><p class="text-gray-700 leading-relaxed mt-6">Cordialmente,</p><p class="font-bold text-gray-800 mt-4"><span id="final-kam-name"></span><br><span class="font-normal">KAM / KAE</span></p></footer>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('proposal-form');
+            
+            function formatCurrency(value, currency = 'S/.') {
+                const num = parseFloat(value) || 0;
+                return `${currency} ${num.toFixed(2)}`;
+            }
+
+            function updatePreview() {
+                // --- OBTENER VALORES DEL FORMULARIO ---
+                const clientName = document.getElementById('client-name').value;
+                const oppNumber = document.getElementById('opp-number').value;
+                const contactName = document.getElementById('contact-name').value;
+                const kamName = document.getElementById('kam-name').value;
+                const kamEmail = document.getElementById('kam-email').value;
+                const kamPhone = document.getElementById('kam-phone').value;
+                const specialistName = document.getElementById('specialist-name').value;
+                const specialistEmail = document.getElementById('specialist-email').value;
+                const specialistPhone = document.getElementById('specialist-phone').value;
+
+                // --- FECHAS ---
+                const today = new Date();
+                const dateString = today.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                const validUntil = new Date();
+                validUntil.setDate(today.getDate() + 30);
+                const validUntilString = validUntil.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+                // --- ACTUALIZAR PORTADA ---
+                document.getElementById('cover-opp-number').innerText = `OMNI-${oppNumber}-01`;
+                document.getElementById('cover-date').innerText = dateString;
+                document.getElementById('cover-valid-until').innerText = validUntilString;
+                document.getElementById('cover-client-name').innerText = clientName;
+                document.getElementById('cover-kam-name-from').innerText = kamName;
+                document.getElementById('cover-kam-email').innerText = kamEmail;
+                document.getElementById('cover-kam-phone').innerText = kamPhone;
+                document.getElementById('cover-specialist-name').innerText = specialistName;
+                document.getElementById('cover-specialist-email').innerText = specialistEmail;
+                document.getElementById('cover-specialist-phone').innerText = specialistPhone;
+                document.getElementById('cover-kam-name-main').innerText = kamName;
+
+
+                // --- ACTUALIZAR CONTENIDO ---
+                document.getElementById('conf-client-name').innerText = clientName;
+                document.getElementById('conf-client-name-2').innerText = clientName;
+                document.getElementById('conf-client-name-3').innerText = clientName;
+                document.getElementById('exec-contact-name').innerText = contactName;
+                document.getElementById('final-contact-name').innerText = contactName;
+                document.getElementById('final-kam-name').innerText = kamName;
+
+                // --- TABLA DE PRECIOS PRINCIPAL ---
+                const pricingTable = document.getElementById('preview-pricing-table');
+                pricingTable.innerHTML = '';
+                const smsVolume = document.getElementById('sms-volume').value;
+                pricingTable.innerHTML += `<tr><td class="px-4 py-3">${smsVolume} SMS</td><td class="px-4 py-3 text-right">${formatCurrency(document.getElementById('sms-price-msg').value)}</td><td class="px-4 py-3 text-right">${formatCurrency(document.getElementById('sms-price-monthly').value)}</td><td class="px-4 py-3 text-right">-</td></tr>`;
+                const emailVolume = document.getElementById('email-volume').value;
+                pricingTable.innerHTML += `<tr><td class="px-4 py-3">${emailVolume} EMAIL</td><td class="px-4 py-3 text-right">${formatCurrency(document.getElementById('email-price-msg').value)}</td><td class="px-4 py-3 text-right">${formatCurrency(document.getElementById('email-price-monthly').value)}</td><td class="px-4 py-3 text-right">-</td></tr>`;
+                const validationVolume = document.getElementById('validation-volume').value;
+                pricingTable.innerHTML += `<tr><td class="px-4 py-3">${validationVolume} VALIDATION</td><td class="px-4 py-3 text-right">S/. 0.0185</td><td class="px-4 py-3 text-right">-</td><td class="px-4 py-3 text-right">${formatCurrency(document.getElementById('validation-price-oneshot').value)}</td></tr>`;
+
+                // --- TABLA OPCIONAL ---
+                const optionalTable = document.getElementById('preview-optional-table');
+                optionalTable.innerHTML = `<tr><td class="px-4 py-3">SOPORTE "BASIC"</td><td class="px-4 py-3 text-right">${formatCurrency(0)}</td><td class="px-4 py-3 text-right">-</td></tr>`;
+                if (document.getElementById('include-alpha').checked) optionalTable.innerHTML += `<tr><td class="px-4 py-3">ALPHA SENDER</td><td class="px-4 py-3 text-right">-</td><td class="px-4 py-3 text-right">${formatCurrency(40000)}</td></tr>`;
+                if (document.getElementById('include-shortcode').checked) optionalTable.innerHTML += `<tr><td class="px-4 py-3">SHORT CODE</td><td class="px-4 py-3 text-right">-</td><td class="px-4 py-3 text-right">${formatCurrency(47000)}</td></tr>`;
+                if (document.getElementById('include-support').checked) optionalTable.innerHTML += `<tr><td class="px-4 py-3">SOPORTE "STANDARD" (Opcional)</td><td class="px-4 py-3 text-right">${formatCurrency(569)}</td><td class="px-4 py-3 text-right">-</td></tr>`;
+                if (document.getElementById('include-training').checked) optionalTable.innerHTML += `<tr><td class="px-4 py-3">ENTRENAMIENTO Y CONSULTORÍA (Opcional)</td><td class="px-4 py-3 text-right">-</td><td class="px-4 py-3 text-right">${formatCurrency(117, '$')}</td></tr>`;
+                
+                // --- CONDICIONES ---
+                document.getElementById('cond-sms-volume').innerText = smsVolume;
+                document.getElementById('cond-email-volume').innerText = emailVolume;
+                document.getElementById('cond-validation-volume').innerText = validationVolume;
+            }
+
+            form.addEventListener('input', updatePreview);
+            document.getElementById('print-btn').addEventListener('click', () => window.print());
+            updatePreview();
+        });
+    </script>
+</body>
+</html>
